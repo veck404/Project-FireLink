@@ -30,7 +30,7 @@ import {
   systemModules,
   workflow,
 } from "@/lib/source-data";
-import { getIncidents, isSupabaseConfigured } from "@/lib/supabase-rest";
+import { getIncidents } from "@/lib/supabase-rest";
 import type { Incident, IncidentSeverity, IncidentStatus } from "@/lib/types";
 
 const heroImage = "https://unsplash.com/photos/6wP4T8QLUGc/download?force=true&w=1800";
@@ -75,8 +75,6 @@ export default async function Home({ searchParams }: HomeProps) {
     incidents.reduce((total, incident) => total + (incident.response_minutes ?? 0), 0) /
       incidents.filter((incident) => typeof incident.response_minutes === "number").length,
   );
-  const supabaseReady = isSupabaseConfigured();
-
   return (
     <main className="min-h-screen bg-[#120907] text-slate-950">
       <header className="sticky top-0 z-20 border-b border-white/10 bg-[#120907]/90 text-white shadow-2xl shadow-black/20 backdrop-blur-xl">
@@ -129,7 +127,6 @@ export default async function Home({ searchParams }: HomeProps) {
           <div className="flex flex-col justify-between gap-8">
             <div className="max-w-3xl">
               <div className="mb-5 flex flex-wrap items-center gap-3">
-                <StatusBadge active={supabaseReady} />
                 {params?.reported ? (
                   <span className="rounded bg-emerald-400/15 px-3 py-1 text-xs font-semibold text-emerald-100 ring-1 ring-emerald-300/30">
                     Incident captured
@@ -449,21 +446,6 @@ function FormField({
       </span>
       {children}
     </label>
-  );
-}
-
-function StatusBadge({ active }: { active: boolean }) {
-  return (
-    <span
-      className={`inline-flex items-center gap-2 rounded px-3 py-1 text-xs font-semibold ring-1 ${
-        active
-          ? "bg-emerald-400/15 text-emerald-100 ring-emerald-300/30"
-          : "bg-amber-300/15 text-amber-100 ring-amber-200/30"
-      }`}
-    >
-      <span className={`size-2 rounded-full ${active ? "bg-emerald-300" : "bg-amber-300"}`} />
-      {active ? "Supabase connected" : "Using seeded source data"}
-    </span>
   );
 }
 
