@@ -75,6 +75,38 @@ export async function createIncident(input: IncidentInput): Promise<Incident> {
   }
 }
 
+export async function updateIncidentStatus({
+  incidentId,
+  status,
+  assignedUnit,
+}: {
+  incidentId: string;
+  status: IncidentStatus;
+  assignedUnit?: string;
+}) {
+  if (!isSupabaseConfigured()) {
+    return;
+  }
+
+  try {
+    const response = await fetch(`${SUPABASE_URL}/rest/v1/incidents?id=eq.${encodeURIComponent(incidentId)}`, {
+      method: "PATCH",
+      headers: supabaseHeaders(),
+      body: JSON.stringify({
+        status,
+        assigned_unit: assignedUnit || null,
+      }),
+      cache: "no-store",
+    });
+
+    if (!response.ok) {
+      console.warn("Supabase incident update failed", await response.text());
+    }
+  } catch (error) {
+    console.warn("Supabase incident update failed", error);
+  }
+}
+
 function supabaseHeaders(prefer?: string) {
   const headers: Record<string, string> = {
     apikey: SUPABASE_KEY ?? "",

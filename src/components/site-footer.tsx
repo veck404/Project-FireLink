@@ -1,10 +1,11 @@
+import Link from "next/link";
 import { Flame, Mail, MapPin, Phone, RadioTower, ShieldCheck } from "lucide-react";
 
 const footerLinks = [
-  { label: "Dashboard", href: "#dashboard" },
-  { label: "Incidents", href: "#incidents" },
-  { label: "Findings", href: "#findings" },
-  { label: "Supabase", href: "#schema" },
+  { label: "User Dashboard", href: "/user" },
+  { label: "Admin Dashboard", href: "/admin" },
+  { label: "Findings", href: "/#findings" },
+  { label: "Supabase", href: "/#schema" },
 ];
 
 const supportLinks = [
@@ -20,7 +21,7 @@ export function SiteFooter() {
       <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
         <div className="grid gap-8 lg:grid-cols-[1.2fr_0.8fr_0.8fr_1fr]">
           <div>
-            <a href="#top" className="inline-flex items-center gap-3">
+            <Link href="/#top" className="inline-flex items-center gap-3">
               <span className="grid size-11 place-items-center rounded bg-gradient-to-br from-red-600 via-orange-500 to-amber-300 text-white shadow-lg shadow-red-950/40">
                 <Flame className="size-5" aria-hidden="true" />
               </span>
@@ -30,7 +31,7 @@ export function SiteFooter() {
                 </span>
                 <span className="block text-xs text-orange-100/65">Emergency reporting command</span>
               </span>
-            </a>
+            </Link>
             <p className="mt-4 max-w-sm text-sm leading-6 text-orange-50/70">
               A centralized digital platform for faster fire incident reporting, responder
               coordination, and management visibility.
@@ -43,9 +44,9 @@ export function SiteFooter() {
 
           <FooterColumn title="Navigate">
             {footerLinks.map((link) => (
-              <a key={link.href} href={link.href} className="text-sm text-orange-50/70 hover:text-amber-200">
+              <Link key={link.href} href={link.href} className="text-sm text-orange-50/70 hover:text-amber-200">
                 {link.label}
-              </a>
+              </Link>
             ))}
           </FooterColumn>
 
