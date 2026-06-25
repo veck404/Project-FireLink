@@ -2,6 +2,7 @@ import { DashboardSection } from "@/components/dashboard-section";
 import { FindingsSection } from "@/components/findings-section";
 import { HeroSection } from "@/components/hero-section";
 import { ModulesSection } from "@/components/modules-section";
+import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { SupabaseSection } from "@/components/supabase-section";
 import { VisualStorySection } from "@/components/visual-story-section";
@@ -34,6 +35,7 @@ export default async function Home({ searchParams }: HomeProps) {
       <ModulesSection />
       <FindingsSection />
       <SupabaseSection />
+      <SiteFooter />
     </main>
   );
 }
